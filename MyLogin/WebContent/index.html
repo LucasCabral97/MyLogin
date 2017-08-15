@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Login do Sistema</title>
+</head>
+<body>
+<h1> Login do Sistema</h1>
+<hr>
+<form action="/MyLogin/ValidarUsuario" method="post">
+	<table>
+		<tr>
+			<td>Usuario:</td>
+			<td><input type="text" id="email" name="email" value="" required autofocus autocomplete="off"></td>
+		</tr>
+		<tr>
+			<td>Senha:</td>
+			<td><input type="password" id="senha" name="senha" value="" required></td>
+		</tr>
+		<tr>
+			<td><input type="submit" value="Entrar"></td>
+			<td><input type="reset" value="Limpar"></td>
+			<td><a href="http://localhost:8080/MyLogin/cadastro.html"><button type="button" >Cadastrar</button></a></td>
+		</tr>
+		
+	</table>
+	<hr>
+</form>
+</body>
+</html>
