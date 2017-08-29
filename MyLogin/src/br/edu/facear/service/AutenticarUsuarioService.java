@@ -1,6 +1,7 @@
 package br.edu.facear.service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import br.edu.facear.dao.ClienteDAO;
 import br.edu.facear.model.Cliente;
@@ -31,5 +32,11 @@ public class AutenticarUsuarioService {
 		}
 		
 		return aux;
+	}
+	public static ArrayList<Cliente> listar() throws SQLException, ClassNotFoundException{
+		ArrayList<Cliente> lista=new ArrayList<Cliente>();
+		ClienteDAO cDAO=new ClienteDAO();
+		lista.addAll(cDAO.listar());
+		return lista;
 	}
 }

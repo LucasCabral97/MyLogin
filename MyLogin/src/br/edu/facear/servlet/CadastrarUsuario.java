@@ -32,7 +32,20 @@ public class CadastrarUsuario extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String next_page = "/cadastro.jsp";
+		RequestDispatcher rd = getServletContext().getRequestDispatcher(next_page);
+		rd.forward(request, response);
+		/*String email=request.getParameter("emailCad");
+		String senha=request.getParameter("senhaCad");
+		String nome=request.getParameter("nomeCad");
+		String cpf=request.getParameter("cpfCad");
+		boolean aux=false;
+		Cliente cliente=new Cliente(nome, cpf, email, senha);
+		
+		aux=AutenticarUsuarioService.cadastrar(cliente);
+		
+		RequestDispatcher rf = getServletContext().getRequestDispatcher(next_page);
+		rf.forward(request, response);*/
 	}
 
 	/**
@@ -40,26 +53,7 @@ public class CadastrarUsuario extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String next_page = "/cadastro.html";
-		String email=request.getParameter("email");
-		String senha=request.getParameter("senha");
-		String nome=request.getParameter("nome");
-		String cpf=request.getParameter("cpf");
-		boolean aux=false;
-		Cliente cliente=new Cliente(nome, cpf, email, senha);
-		
-		aux=AutenticarUsuarioService.cadastrar(cliente);
-		
-		
-		
-		if(aux!=true){
-			next_page = "/index.html";
-		}else{
-			next_page = "/cadastro.html";
-		}
-		
-		RequestDispatcher rd = getServletContext().getRequestDispatcher(next_page);
-		rd.forward(request, response);
+		doGet(request, response);
 	}
 
 }

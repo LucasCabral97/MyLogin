@@ -1,6 +1,8 @@
 package br.edu.facear.servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,16 +15,16 @@ import br.edu.facear.model.Cliente;
 import br.edu.facear.service.AutenticarUsuarioService;
 
 /**
- * Servlet implementation class ValidarUsuario
+ * Servlet implementation class Listar
  */
-@WebServlet("/ValidarUsuario")
-public class ValidarUsuario extends HttpServlet {
+@WebServlet("/Listar")
+public class Listar extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ValidarUsuario() {
+    public Listar() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,32 +34,28 @@ public class ValidarUsuario extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		ArrayList<Cliente> c=new ArrayList<Cliente>();
+		try {
+			c =	AutenticarUsuarioService.listar();
+			request.setAttribute("listaClientes", c);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		RequestDispatcher rs =request.getRequestDispatcher("/listarUsuarios.jsp");
+		rs.forward(request,response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	 */ 
+	 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String next_page = "/index.html";
-		String email=request.getParameter("email");
-		String senha=request.getParameter("senha");
-		//obter do Banco de Dados
-		Cliente c =	AutenticarUsuarioService.autenticar(email,senha);
-		//colocar na area de memoria da sessao
-		
-		//pegar getParameter * colocar setAttribute
-		
-		request.setAttribute("cliente", c);
-		
-		if(c!=null){
-			next_page = "/principal.jsp";
-		}else{
-			next_page = "/cadastro.html";
-		}
-		
-		RequestDispatcher rd = getServletContext().getRequestDispatcher(next_page);
-		rd.forward(request, response);
+		doGet(request, response);
 	}
 
 }
